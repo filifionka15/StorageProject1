@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище StorageModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="text" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Technics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="text" />
+        </EntityType>
+        <EntityType Name="UsedMaterial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Material" Type="int" Nullable="false" />
+          <Property Name="TechnicsUnit" Type="int" Nullable="false" />
+          <Property Name="DateOfUse" Type="date" Nullable="false" />
+          <Property Name="QuantityOfMaterial" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_UsedMaterial_Materials">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
+          <End Role="UsedMaterial" Type="Self.UsedMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsedMaterial">
+              <PropertyRef Name="Material" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsedMaterial_Technics">
+          <End Role="Technics" Type="Self.Technics" Multiplicity="1" />
+          <End Role="UsedMaterial" Type="Self.UsedMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technics">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsedMaterial">
+              <PropertyRef Name="TechnicsUnit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Procedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Material" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище StorageModelContainer">
+          <EntitySet Name="Materials" EntityType="Self.Materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Technics" EntityType="Self.Technics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsedMaterial" EntityType="Self.UsedMaterial" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_UsedMaterial_Materials" Association="Self.FK_UsedMaterial_Materials">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="UsedMaterial" EntitySet="UsedMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsedMaterial_Technics" Association="Self.FK_UsedMaterial_Technics">
+            <End Role="Technics" EntitySet="Technics" />
+            <End Role="UsedMaterial" EntitySet="UsedMaterial" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StorageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="UsedMaterial" Relationship="Self.FK_UsedMaterial_Materials" FromRole="Materials" ToRole="UsedMaterial" />
+        </EntityType>
+        <EntityType Name="Technics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UsedMaterial" Relationship="Self.FK_UsedMaterial_Technics" FromRole="Technics" ToRole="UsedMaterial" />
+        </EntityType>
+        <EntityType Name="UsedMaterial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Material" Type="Int32" Nullable="false" />
+          <Property Name="TechnicsUnit" Type="Int32" Nullable="false" />
+          <Property Name="DateOfUse" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="QuantityOfMaterial" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK_UsedMaterial_Materials" FromRole="UsedMaterial" ToRole="Materials" />
+          <NavigationProperty Name="Technics" Relationship="Self.FK_UsedMaterial_Technics" FromRole="UsedMaterial" ToRole="Technics" />
+        </EntityType>
+        <Association Name="FK_UsedMaterial_Materials">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
+          <End Role="UsedMaterial" Type="Self.UsedMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsedMaterial">
+              <PropertyRef Name="Material" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsedMaterial_Technics">
+          <End Role="Technics" Type="Self.Technics" Multiplicity="1" />
+          <End Role="UsedMaterial" Type="Self.UsedMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technics">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsedMaterial">
+              <PropertyRef Name="TechnicsUnit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StorageEntities4" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Materials" EntityType="Self.Materials" />
+          <EntitySet Name="Technics" EntityType="Self.Technics" />
+          <EntitySet Name="UsedMaterial" EntityType="Self.UsedMaterial" />
+          <AssociationSet Name="FK_UsedMaterial_Materials" Association="Self.FK_UsedMaterial_Materials">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="UsedMaterial" EntitySet="UsedMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsedMaterial_Technics" Association="Self.FK_UsedMaterial_Technics">
+            <End Role="Technics" EntitySet="Technics" />
+            <End Role="UsedMaterial" EntitySet="UsedMaterial" />
+          </AssociationSet>
+          <FunctionImport Name="Procedure" ReturnType="Collection(StorageModel.Procedure_Result)">
+          <Parameter Name="Material" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Procedure_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Material" Nullable="false" />
+          <Property Type="Int32" Name="TechnicsUnit" Nullable="false" />
+          <Property Type="DateTime" Name="DateOfUse" Nullable="false" />
+          <Property Type="Int32" Name="QuantityOfMaterial" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище StorageModelContainer" CdmEntityContainer="StorageEntities4">
+          <EntitySetMapping Name="Materials">
+            <EntityTypeMapping TypeName="StorageModel.Materials">
+              <MappingFragment StoreEntitySet="Materials">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Technics">
+            <EntityTypeMapping TypeName="StorageModel.Technics">
+              <MappingFragment StoreEntitySet="Technics">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsedMaterial">
+            <EntityTypeMapping TypeName="StorageModel.UsedMaterial">
+              <MappingFragment StoreEntitySet="UsedMaterial">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="TechnicsUnit" ColumnName="TechnicsUnit" />
+                <ScalarProperty Name="DateOfUse" ColumnName="DateOfUse" />
+                <ScalarProperty Name="QuantityOfMaterial" ColumnName="QuantityOfMaterial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Procedure" FunctionName="Хранилище StorageModel.Procedure">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StorageModel.Procedure_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="TechnicsUnit" ColumnName="TechnicsUnit" />
+                <ScalarProperty Name="DateOfUse" ColumnName="DateOfUse" />
+                <ScalarProperty Name="QuantityOfMaterial" ColumnName="QuantityOfMaterial" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
