@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Роли пользователей";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@model IEnumerable<StorageProject.Models.RolesViewModel>
+
+<table class="table">
+    <tr>
+        <th>
+            User
+        </th>
+        <th>
+            Role
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var user in Model.ToList())
+    {
+
+    <tr>
+        <td>
+            @user.UserName
+        </td>
+
+
+
+        @foreach (var role in user.RoleNames)
+        {
+            <td>
+                @role
+            </td>
+            <th></th>
+        }
+        <td>
+            @Html.ActionLink("Сделать учетчиком", "RoleWorker", new { id = user.Id }) |
+            @Html.ActionLink("Сделать начальником", "RoleSuperior", new { id = user.Id }) |
+            @Html.ActionLink("Сделать администратором", "RoleAdmin", new { id = user.Id }) |
+            @Html.ActionLink("Удалить пользователя", "Delete", new { id = user.Id })
+        </td>
+    </tr>
+    }
+</table>
+    

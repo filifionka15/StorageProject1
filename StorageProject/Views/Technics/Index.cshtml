@@ -1,21 +1,18 @@
-﻿@model IEnumerable<StorageProject.Models.Materials>
+﻿@model IEnumerable<StorageProject.Models.Technics>
 
 @{
-    ViewBag.Title = "Материалы";
+    ViewBag.Title = "Техника";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Добавить материал", "Create")
+    @Html.ActionLink("Добавить технику", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantity)
         </th>
         <th></th>
     </tr>
@@ -24,9 +21,6 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
         </td>
         <td>
             @Html.ActionLink("Редактировать", "Edit", new { id=item.Id }) |

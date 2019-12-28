@@ -15,13 +15,23 @@ namespace StorageProject.Controllers
         private StorageEntities4 db = new StorageEntities4();
 
         // GET: UsedMaterials
+
+
         public ActionResult Index()
         {
             var usedMaterial = db.UsedMaterial.Include(u => u.Materials).Include(u => u.Technics);
             return View(usedMaterial.ToList());
         }
-
+        public ActionResult MaterialError()
+        {
+            return View();
+        }
+        public ActionResult QuantityError()
+        {
+            return View();
+        }
         // GET: UsedMaterials/Details/5
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +47,7 @@ namespace StorageProject.Controllers
         }
 
         // GET: UsedMaterials/Create
+        [Authorize(Roles = "Worker, Superior")]
         public ActionResult Create()
         {
             ViewBag.Material = new SelectList(db.Materials, "Id", "Name");
@@ -45,8 +56,7 @@ namespace StorageProject.Controllers
         }
 
         // POST: UsedMaterials/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Worker, Superior")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Material,TechnicsUnit,DateOfUse,QuantityOfMaterial")] UsedMaterial usedMaterial)
@@ -54,16 +64,17 @@ namespace StorageProject.Controllers
             if (ModelState.IsValid)
             {
                 Materials materials = db.Materials.Find(usedMaterial.Material);
-                if (usedMaterial.QuantityOfMaterial <= materials.Quantity) {
+                if (usedMaterial.QuantityOfMaterial <= materials.Quantity & usedMaterial.QuantityOfMaterial>0)
+                {
                     db.UsedMaterial.Add(usedMaterial);
-                    //db.SaveChanges();
+
 
                     materials.Quantity = materials.Quantity - usedMaterial.QuantityOfMaterial;
                     db.Entry(materials).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                else { RedirectToAction("Index"); }
-
+                else if(usedMaterial.QuantityOfMaterial > materials.Quantity) { return RedirectToAction("MaterialError"); }
+                else if (usedMaterial.QuantityOfMaterial <= 0) { return RedirectToAction("QuantityError"); }
                 return RedirectToAction("Index");
             }
 
@@ -73,7 +84,7 @@ namespace StorageProject.Controllers
         }
 
 
-
+        [Authorize(Roles = "Worker, Superior")]
         // GET: UsedMaterials/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -88,7 +99,7 @@ namespace StorageProject.Controllers
             }
             return View(usedMaterial);
         }
-
+        [Authorize(Roles = "Worker, Superior")]
         // POST: UsedMaterials/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -101,7 +112,6 @@ namespace StorageProject.Controllers
             db.UsedMaterial.Remove(usedMaterial);
             db.SaveChanges();
             return RedirectToAction("Index");
-
         }
 
         protected override void Dispose(bool disposing)
@@ -112,5 +122,7 @@ namespace StorageProject.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }
+

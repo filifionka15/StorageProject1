@@ -1,0 +1,42 @@
+﻿
+@model Dictionary<string, int>
+@{
+    ViewBag.Title = "Средний расход материалов";
+}
+
+<h2>Средний расход материалов за выбранный период</h2>
+
+<form method="post" action="~/AvgMaterials/Index">
+    <label>Введите начало периода:</label>
+    <input type="text" name="dateFirst" tabindex="1" />
+    <label>Введите конец периода:</label>
+    <input type="text" name="dateSecond" tabindex="2" />
+    <input type="submit" value="Отобразить" />
+</form>
+<h3>@ViewData["Error"]</h3>
+<h3>@ViewData["Message"]</h3>
+<table class="table">
+    <tr>
+        <th>
+            Материал
+        </th>
+        <th>
+            Количество
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+        </tr>
+    }
+
+</table>
+

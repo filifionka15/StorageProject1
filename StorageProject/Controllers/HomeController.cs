@@ -15,17 +15,12 @@ namespace StorageProject.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Система автоматизации учета расходных материалов на промышленном предприятии.";
 
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
 
     }
 }

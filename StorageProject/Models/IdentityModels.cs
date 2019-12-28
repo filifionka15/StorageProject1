@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 
 namespace StorageProject.Models
 {
@@ -29,5 +31,29 @@ namespace StorageProject.Models
         {
             return new ApplicationDbContext();
         }
+
+        //public System.Data.Entity.DbSet<StorageProject.Models.ApplicationUser> ApplicationUsers { get; set; }
+
+        //public System.Data.Entity.DbSet<StorageProject.Models.ApplicationUser> ApplicationUsers { get; set; }
+
+        //public System.Data.Entity.DbSet<StorageProject.Models.ApplicationUser> ApplicationUsers { get; set; }
+
+        //public System.Data.Entity.DbSet<StorageProject.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
+
+
+    public class ApplicationContext : IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationContext() : base("DefaultConnection") { }
+
+        public static ApplicationContext Create()
+        {
+            return new ApplicationContext();
+        }
+
+        //public System.Data.Entity.DbSet<StorageProject.Models.AppUser> AppUsers { get; set; }
+        //public System.Data.Entity.DbSet<StorageProject.Models.ApplicationUser> ApplicationUsers { get; set; }
+    }
+
+
 }

@@ -1,12 +1,12 @@
-﻿@model StorageProject.Models.Materials
+﻿@model StorageProject.Models.Technics
 
 @{
-    ViewBag.Title = "Удалить материал";
+    ViewBag.Title = "Удалить технику";
 }
 
 <h2>@ViewBag.Title</h2>
 
-<h3>Вы уверены, что хотите удалить материал?</h3>
+<h3>Вы уверены, что хотите удалить единицу техники?</h3>
 <div>
 
     <hr />
@@ -19,14 +19,6 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-
     </dl>
 
     @using (Html.BeginForm()) {
@@ -34,7 +26,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Удалить" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Вернуться к списку", "Index")
         </div>
     }
 </div>

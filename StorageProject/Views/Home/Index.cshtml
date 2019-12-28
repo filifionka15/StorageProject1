@@ -1,34 +1,54 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+                /**/
+
+                ViewBag.Title = "Главная страница";
 }
+@if (User.IsInRole("Administrator") || User.IsInRole("Worker") || User.IsInRole("Superior"))
+{
+    <div class="jumbotron">
+        <h1>Материалы на складе</h1>
+        <p class="lead">Перейти к списку материалов</p>
+        <p><a href="~/Materials" class="btn btn-primary btn-lg">Перейти &raquo;</a></p>
+    </div>
+    <div class="jumbotron">
+        <h1>Израсходованные материалы</h1>
+        <p class="lead">Перейти к списку материалов</p>
+        <p><a href="~/UsedMaterials" class="btn btn-primary btn-lg">Перейти &raquo;</a></p>
+    </div>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
-@Html.ActionLink("Материалы", "Index", "Materials")
-@Html.ActionLink("Техника", "Index", "Technics")
-@Html.ActionLink("Использованные материалы", "Index", "UsedMaterials")
+    if (User.IsInRole("Superior") || User.IsInRole("Administrator"))
+
+    {
+
+        <div class="jumbotron">
+            <h1>Список техники</h1>
+            <p class="lead">Техника, на которую расходуется материал</p>
+            <p><a href="~/Technics" class="btn btn-primary btn-lg">Перейти &raquo;</a></p>
+        </div>
+    }
+
+    if (User.IsInRole("Administrator"))
+    {
+        <div class="jumbotron">
+            <h1>Список пользователей</h1>
+            <p class="lead">Пользователи сайта</p>
+            <p><a href="~/Admin" class="btn btn-primary btn-lg">Перейти &raquo;</a></p>
+        </div>
+
+    }
+    if (User.IsInRole("Worker"))
+    {
+        <div class="jumbotron">
+            <h1>Средний расход материалов за период</h1>
+            <p class="lead">Перейти к списку материалов</p>
+            <p><a href="~/AvgMaterials" class="btn btn-primary btn-lg">Перейти &raquo;</a></p>
+        </div>
+
+    }
+
+}
+else
+{
+    <h2>Вам нужно выполнить вход перед началом работы!</h2>
+}

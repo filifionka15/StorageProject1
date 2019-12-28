@@ -10,111 +10,106 @@ using StorageProject.Models;
 
 namespace StorageProject.Controllers
 {
-    public class MaterialsController : Controller
-    {
+    [Authorize(Roles = "Superior")]
+    public class TechnicsController : Controller
+    {   
         private StorageEntities4 db = new StorageEntities4();
 
-        // GET: Materials
+        // GET: Technics
         public ActionResult Index()
         {
-            return View(db.Materials.ToList());
+            return View(db.Technics.ToList());
         }
 
-        // GET: Materials/Details/5
+        // GET: Technics/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Materials materials = db.Materials.Find(id);
-            if (materials == null)
+            Technics technics = db.Technics.Find(id);
+            if (technics == null)
             {
                 return HttpNotFound();
             }
-            return View(materials);
+            return View(technics);
         }
 
-        // GET: Materials/Create
-        [Authorize(Roles = "Worker")]
+        // GET: Technics/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Materials/Create
+        // POST: Technics/Create
 
-        [Authorize(Roles = "Worker")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Quantity")] Materials materials)
+        public ActionResult Create([Bind(Include = "Id,Name")] Technics technics)
         {
             if (ModelState.IsValid)
             {
-                db.Materials.Add(materials);
+                db.Technics.Add(technics);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(materials);
+            return View(technics);
         }
 
-        // GET: Materials/Edit/5
-        [Authorize(Roles = "Worker")]
+        // GET: Technics/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Materials materials = db.Materials.Find(id);
-            if (materials == null)
+            Technics technics = db.Technics.Find(id);
+            if (technics == null)
             {
                 return HttpNotFound();
             }
-            return View(materials);
+            return View(technics);
         }
 
-        // POST: Materials/Edit/5
+        // POST: Technics/Edit/5
 
-        [Authorize(Roles = "Worker")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Quantity")] Materials materials)
+        public ActionResult Edit([Bind(Include = "Id,Name")] Technics technics)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(materials).State = EntityState.Modified;
+                db.Entry(technics).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(materials);
+            return View(technics);
         }
 
-        // GET: Materials/Delete/5
-        [Authorize(Roles = "Worker")]
+        // GET: Technics/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Materials materials = db.Materials.Find(id);
-            if (materials == null)
+            Technics technics = db.Technics.Find(id);
+            if (technics == null)
             {
                 return HttpNotFound();
             }
-            return View(materials);
+            return View(technics);
         }
 
-        // POST: Materials/Delete/5
-        [Authorize(Roles = "Worker")]
+        // POST: Technics/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Materials materials = db.Materials.Find(id);
-            db.Materials.Remove(materials);
+            Technics technics = db.Technics.Find(id);
+            db.Technics.Remove(technics);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -127,8 +122,5 @@ namespace StorageProject.Controllers
             }
             base.Dispose(disposing);
         }
-
-
-
     }
 }
