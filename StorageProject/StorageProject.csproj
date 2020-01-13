@@ -198,9 +198,6 @@
     <Compile Include="Models\Materials.cs">
       <DependentUpon>StorageModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Procedure_Result.cs">
-      <DependentUpon>StorageModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\RolesViewModel.cs" />
     <Compile Include="Models\StorageModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -220,7 +217,6 @@
     <Compile Include="Models\Technics.cs">
       <DependentUpon>StorageModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Used.cs" />
     <Compile Include="Models\UsedMaterial.cs">
       <DependentUpon>StorageModel.tt</DependentUpon>
     </Compile>

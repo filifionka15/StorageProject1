@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
 using System.Data.Entity;
 
@@ -23,7 +22,6 @@ namespace StorageProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
 
             var listUsers = db.Users.ToList();
             
@@ -46,11 +44,6 @@ namespace StorageProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            
-
-            //ApplicationUserManager _app = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            //var usr = _app.FindById(id);
-
             foreach (var user in db.Users.ToList())
             {
                 if (user.Id == id)
@@ -70,8 +63,6 @@ namespace StorageProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            //ApplicationUserManager _app = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            //var usr = _app.FindById(id);
             var listUsers = db.Users.ToList();
 
             foreach (var user in listUsers)
@@ -93,15 +84,11 @@ namespace StorageProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult RoleWorkerConfirmed(string id)
         {
-            //ApplicationUserManager _app = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
             foreach (var user in db.Users.ToList())
             {
                 if (user.Id == id)
                 {
                     ApplicationUserManager _app = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                    //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
-
                     IList<string> listRoles = _app.GetRoles(user.Id);
                     _app.RemoveFromRoles(user.Id, listRoles.ToArray());               
                     _app.AddToRole(user.Id, "Worker");
@@ -188,8 +175,6 @@ namespace StorageProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            //ApplicationUserManager _app = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            //var usr = _app.FindById(id);
             var listUsers = db.Users.ToList();
 
             foreach (var user in listUsers)

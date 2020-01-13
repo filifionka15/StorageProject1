@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="a2b0327df54e40288c0f713351595fed" Name="Diagram1">
         <EntityTypeShape EntityType="StorageModel.Materials" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="StorageModel.Technics" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StorageModel.Technics" Width="1.5" PointX="2.625" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="StorageModel.UsedMaterial" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="StorageModel.FK_UsedMaterial_Materials" ManuallyRouted="false" />
         <AssociationConnector Association="StorageModel.FK_UsedMaterial_Technics" ManuallyRouted="false" />
